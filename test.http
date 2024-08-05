@@ -1,0 +1,39 @@
+### Novo Aluno
+
+POST http://localhost:8080/alunos
+Content-Type: application/json
+
+{
+  "nome": "Marina Torres"
+}
+
+### Novo Componente
+
+POST http://localhost:8080/componentes
+Content-Type: application/json
+
+{
+  "codigo": "ppa",
+  "nome": "Princípios e Padrões de Arquitetura"
+}
+
+### Nova Oferta
+
+POST http://localhost:8080/ofertas
+Content-Type: application/json
+
+{
+  "codigoComponente": "ppa",
+  "periodoAno": 2024,
+  "periodoMetade": 1,
+  "vagas": 20,
+  "overbook": 0.5
+}
+
+### Nova Matrícula
+
+POST http://localhost:8080/alunos/202400002/matriculas/ppa-2024-1
+Content-Type: application/json
+
+
+
