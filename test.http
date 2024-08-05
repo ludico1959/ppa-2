@@ -19,11 +19,10 @@ Content-Type: application/json
 
 ### Nova Oferta
 
-POST http://localhost:8080/ofertas
+POST http://localhost:8080/componentes/ppa/ofertas
 Content-Type: application/json
 
 {
-  "codigoComponente": "ppa",
   "periodoAno": 2024,
   "periodoMetade": 1,
   "vagas": 20,
