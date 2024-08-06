@@ -1,7 +1,9 @@
 package br.edu.ifrs.riogrande.tads.ppa.cobaia.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -39,5 +41,23 @@ public class Aluno {
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @Builder.Default
   List<Matricula> matriculas = new ArrayList<>();
+
+  // Domain-Driven: o próprio objeto de domínio
+  // abriga a lógica
+  public void gerarNumeroMatricula() {
+    Random rand = new Random();
+    int ano = LocalDate.now().getYear();
+    int id = rand.nextInt(10000);
+    int numeroMatricula = ano * 10000 + id;
+    this.setNumeroMatricula(numeroMatricula);
+  }
+
+  // static factory method: método fábrica estático
+  public static Aluno cadastrar(String nome) {
+    Aluno aluno = new Aluno();
+    aluno.setNome(nome);
+    aluno.gerarNumeroMatricula();
+    return aluno;
+  }
 
 }

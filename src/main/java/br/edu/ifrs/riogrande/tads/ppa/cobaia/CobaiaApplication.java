@@ -33,7 +33,7 @@ public class CobaiaApplication {
   }
 
   @PostConstruct
-  void test() {
+  void init() {
     System.out.println("=============================== POST CONSTRUCT ==================");
 
     Aluno marcio = Aluno.builder()
