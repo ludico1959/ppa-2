@@ -36,6 +36,7 @@ public class CobaiaApplication {
   void init() {
     System.out.println("\n-------------------------------------------------------------\n");
 
+    // ALUNOS
     Aluno aluno01 = Aluno.builder()
         .numeroMatricula(LocalDate.now().getYear() * 10000 + 1)
         .nome("Lucas Coelho")
@@ -61,8 +62,7 @@ public class CobaiaApplication {
     alunoRepository.save(aluno03);
     alunoRepository.save(aluno04);
 
-    System.out.println(alunoRepository.findAll());
-
+    // COMPONENTES
     Componente ppa = Componente.builder()
         .codigo("ppa")
         .nome("Princípios e Padrões de Arquitetura")
@@ -110,8 +110,8 @@ public class CobaiaApplication {
 
     aluno01.setMatriculas(List.of(matricula01)); // matriculado
     aluno02.setMatriculas(List.of(matricula02)); // matriculado
-    aluno03.setMatriculas(List.of(matricula03)); // matricula antiga, aprovado
-    aluno04.setMatriculas(List.of(matricula04)); // matricula antiga, reprovado
+    aluno03.setMatriculas(List.of(matricula03)); // matriculado (overbook)
+    aluno04.setMatriculas(List.of(matricula04)); // reprovado
 
     alunoRepository.save(aluno01);
     alunoRepository.save(aluno02);

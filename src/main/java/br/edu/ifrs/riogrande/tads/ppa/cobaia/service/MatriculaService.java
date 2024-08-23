@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class MatriculaService1 {
+public class MatriculaService {
 
   private final AlunoRepository alunoRepository;
   private final OfertaRepository ofertaRepository;

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.dto.AlunoDTO;
-import br.edu.ifrs.riogrande.tads.ppa.cobaia.service.AlunoService1;
+import br.edu.ifrs.riogrande.tads.ppa.cobaia.service.AlunoService;
 import lombok.RequiredArgsConstructor;
 
 
@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AlunoController {
 
-  private final AlunoService1 alunoService;
+  private final AlunoService alunoService;
 
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
@@ -44,7 +44,6 @@ public class AlunoController {
         "codigoOferta", codigoOferta));
 
     alunoService.matricularAluno(nroMatriculaAluno,codigoOferta);
-
 
   }
 }

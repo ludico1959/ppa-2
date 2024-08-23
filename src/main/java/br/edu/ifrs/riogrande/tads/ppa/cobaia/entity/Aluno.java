@@ -57,6 +57,7 @@ public class Aluno {
     Aluno aluno = new Aluno();
     aluno.setNome(nome);
     aluno.gerarNumeroMatricula();
+
     return aluno;
   }
 

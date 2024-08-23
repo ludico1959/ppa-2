@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
 public class VagaException extends RuntimeException{
-
+    public VagaException(String msg) {
+      super (msg);
+  }
 
 }

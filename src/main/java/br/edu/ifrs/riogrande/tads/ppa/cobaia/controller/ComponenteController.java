@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.dto.ComponenteDTO;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.dto.OfertaDTO;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.entity.Componente;
-import br.edu.ifrs.riogrande.tads.ppa.cobaia.service.ComponenteService1;
+import br.edu.ifrs.riogrande.tads.ppa.cobaia.service.ComponenteService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ComponenteController {
 
-  private final ComponenteService1 componenteService;;
+  private final ComponenteService componenteService;;
 
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
