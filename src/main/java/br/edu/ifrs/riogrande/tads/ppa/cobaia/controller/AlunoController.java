@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.dto.AlunoDTO;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.service.AlunoService1;
-import br.edu.ifrs.riogrande.tads.ppa.cobaia.service.AlunoService2;
 import lombok.RequiredArgsConstructor;
 
 
@@ -32,17 +31,19 @@ public class AlunoController {
     System.out.println(body);
 
     alunoService.cadastrarAluno(body);
-
   }
+
   // /alunos/20248232/matriculas/ppa-2024-1
-  @PostMapping("/{numeroMatricula}/matriculas/{codigoOferta}")
+  @PostMapping("/{nroMatriculaAluno}/matricular/oferta/{codigoOferta}")
   @ResponseStatus(code = HttpStatus.CREATED)
-  void newMatricula(@PathVariable int numeroMatricula,
-                    @PathVariable String codigoOferta) {
+  void newMatricula(@PathVariable(name = "nroMatriculaAluno") int nroMatriculaAluno,
+                    @PathVariable(name = "codigoOferta") String codigoOferta) {
 
     System.out.println(Map.of(
-        "numeroMatricula", numeroMatricula,
+        "nroMatriculaAluno", nroMatriculaAluno,
         "codigoOferta", codigoOferta));
+
+    alunoService.matricularAluno(nroMatriculaAluno,codigoOferta);
 
 
   }

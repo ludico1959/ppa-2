@@ -1,13 +1,19 @@
 package br.edu.ifrs.riogrande.tads.ppa.cobaia.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Random;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.dto.AlunoDTO;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.entity.Aluno;
+import br.edu.ifrs.riogrande.tads.ppa.cobaia.entity.Matricula;
+import br.edu.ifrs.riogrande.tads.ppa.cobaia.entity.Oferta;
+import br.edu.ifrs.riogrande.tads.ppa.cobaia.entity.Matricula.Situacao;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.repository.AlunoRepository;
+import br.edu.ifrs.riogrande.tads.ppa.cobaia.repository.OfertaRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -15,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class AlunoService1 {
 
   private final AlunoRepository alunoRepository;
-
+  private final OfertaRepository ofertaRepository;
   // Transaction Script
   // Data Transfer Object (objeto de transferência de dados)
 
@@ -35,6 +41,46 @@ public class AlunoService1 {
     // ----
 
     alunoRepository.save(aluno);
+  }
+
+  public void matricularAluno(final int numeroMatricula, final String codigoOferta) {
+
+    final Aluno aluno = alunoRepository.findByNumeroMatricula(numeroMatricula)
+        .orElseThrow(() -> new NotFoundException("Aluno não encontrado"));
+    final Oferta oferta = ofertaRepository.findById(codigoOferta)
+        .orElseThrow(() -> new NotFoundException("Oferta não encontrada"));
+
+    int qtdMatriculas = ofertaRepository.countMatriculasByOferta(codigoOferta);
+    boolean alunoReincidente = false;
+
+    for (Matricula matricula : aluno.getMatriculas()) {
+      if ((matricula.getSituacao() == Situacao.REPROVADO || matricula.getSituacao() == Situacao.TRANCADA
+          || matricula.getSituacao() == Situacao.CANCELADA) && matricula.getOferta().getId().equals(oferta.getId())) {
+        alunoReincidente = true;
+      }
+    }
+
+    int totalVagasComOverbook = (int) Math.ceil(oferta.getVagas() * ((int) 1 + oferta.getOverbook()));
+
+    if (alunoReincidente && qtdMatriculas >= totalVagasComOverbook) {
+      throw new VagaException();
+    }
+
+    if (!alunoReincidente && qtdMatriculas >= oferta.getVagas()) {
+      throw new VagaException();
+    }
+
+    final Matricula mat = Matricula.builder()
+        .id(UUID.randomUUID())
+        .data(LocalDateTime.now())
+        .oferta(oferta)
+        .situacao(Situacao.REGULAR)
+        .build();
+
+    aluno.getMatriculas().add(mat);
+
+    alunoRepository.save(aluno);
+
   }
 
 }

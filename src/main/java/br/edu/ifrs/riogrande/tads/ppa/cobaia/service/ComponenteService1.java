@@ -59,4 +59,9 @@ public class ComponenteService1 {
 
     ofertaRepository.save(oferta);
   }
+
+    public Iterable<Componente> findComponentes() {
+
+      return componenteRepository.findAll();
+  }
 }

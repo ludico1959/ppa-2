@@ -11,9 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.entity.Aluno;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.entity.Componente;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.entity.Matricula;
+import br.edu.ifrs.riogrande.tads.ppa.cobaia.entity.Matricula.Situacao;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.entity.Oferta;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.entity.Periodo;
-import br.edu.ifrs.riogrande.tads.ppa.cobaia.entity.Matricula.Situacao;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.repository.AlunoRepository;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.repository.ComponenteRepository;
 import br.edu.ifrs.riogrande.tads.ppa.cobaia.repository.OfertaRepository;
@@ -34,48 +34,93 @@ public class CobaiaApplication {
 
   @PostConstruct
   void init() {
-    System.out.println("=============================== POST CONSTRUCT ==================");
+    System.out.println("\n-------------------------------------------------------------\n");
 
-    Aluno marcio = Aluno.builder()
+    Aluno aluno01 = Aluno.builder()
         .numeroMatricula(LocalDate.now().getYear() * 10000 + 1)
-        .nome("Márcio Torres")
+        .nome("Lucas Coelho")
         .build();
 
-    alunoRepository.save(marcio);
+    Aluno aluno02 = Aluno.builder()
+        .numeroMatricula(LocalDate.now().getYear() * 10000 + 2)
+        .nome("Lorrana Pereira")
+        .build();
+
+    Aluno aluno03 = Aluno.builder()
+        .numeroMatricula(LocalDate.now().getYear() * 10000 + 3)
+        .nome("Márcio Nunes")
+        .build();
+
+    Aluno aluno04 = Aluno.builder()
+        .numeroMatricula(LocalDate.now().getYear() * 10000 + 4)
+        .nome("Arlindo Cruz")
+        .build();
+
+    alunoRepository.save(aluno01);
+    alunoRepository.save(aluno02);
+    alunoRepository.save(aluno03);
+    alunoRepository.save(aluno04);
 
     System.out.println(alunoRepository.findAll());
 
-    Componente poo = Componente.builder()
-        .codigo("poo")
-        .nome("Programação Orientada a Objetos")
+    Componente ppa = Componente.builder()
+        .codigo("ppa")
+        .nome("Princípios e Padrões de Arquitetura")
         .build();
 
-    componenteRepository.save(poo);
+    componenteRepository.save(ppa);
 
-    Oferta poo_2024_1 = Oferta.builder()
-        .componente(poo)
-        .id("poo-2024-1")
-        .vagas(10)
+    Oferta ppa_2024_1 = Oferta.builder()
+        .componente(ppa)
+        .id("ppa-2024-1")
+        .vagas(2)
         .periodo(Periodo.of(2024, 1))
-        .overbook(0.2)
+        .overbook(0.5)
         .build();
 
-    ofertaRepository.save(poo_2024_1);
+    ofertaRepository.save(ppa_2024_1);
 
-    Matricula mat = Matricula.builder()
+    Matricula matricula01 = Matricula.builder()
         .id(UUID.randomUUID())
         .data(LocalDateTime.now())
-        .oferta(poo_2024_1)
+        .oferta(ppa_2024_1)
         .situacao(Situacao.REGULAR)
         .build();
 
-    marcio.setMatriculas(List.of(mat));
+    Matricula matricula02 = Matricula.builder()
+        .id(UUID.randomUUID())
+        .data(LocalDateTime.now())
+        .oferta(ppa_2024_1)
+        .situacao(Situacao.REGULAR)
+        .build();
 
-    alunoRepository.save(marcio);
+    Matricula matricula03 = Matricula.builder()
+        .id(UUID.randomUUID())
+        .data(LocalDateTime.of(2023, 06, 30, 0, 0, 0))
+        .oferta(ppa_2024_1)
+        .situacao(Situacao.REPROVADO)
+        .build();
 
-    System.out.println(alunoRepository.findByNumeroMatricula(20240001).get().getMatriculas());
+    Matricula matricula04 = Matricula.builder()
+        .id(UUID.randomUUID())
+        .data(LocalDateTime.of(2023, 12, 30, 0, 0, 0))
+        .oferta(ppa_2024_1)
+        .situacao(Situacao.REPROVADO)
+        .build();
 
-    System.out.println("=============================== POST CONSTRUCT ==================");
+    aluno01.setMatriculas(List.of(matricula01)); // matriculado
+    aluno02.setMatriculas(List.of(matricula02)); // matriculado
+    aluno03.setMatriculas(List.of(matricula03)); // matricula antiga, aprovado
+    aluno04.setMatriculas(List.of(matricula04)); // matricula antiga, reprovado
+
+    alunoRepository.save(aluno01);
+    alunoRepository.save(aluno02);
+    alunoRepository.save(aluno03);
+    alunoRepository.save(aluno04);
+
+    System.out.println("\nMATRICULAS:\n" + alunoRepository.findByNumeroMatricula(20240001).get().getMatriculas());
+
+    System.out.println("\n-------------------------------------------------------------\n");
   }
 
 }

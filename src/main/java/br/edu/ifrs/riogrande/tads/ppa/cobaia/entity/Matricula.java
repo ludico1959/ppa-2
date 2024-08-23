@@ -9,7 +9,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AccessLevel;
@@ -46,7 +46,7 @@ public class Matricula {
   @Temporal(TemporalType.TIMESTAMP)
   LocalDateTime data;
 
-  @OneToOne(fetch = FetchType.EAGER, optional = false)
+  @ManyToOne(fetch = FetchType.EAGER)
   Oferta oferta;
 
   @Enumerated(EnumType.STRING)

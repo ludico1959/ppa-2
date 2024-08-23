@@ -1,5 +1,7 @@
 package br.edu.ifrs.riogrande.tads.ppa.cobaia.entity;
 
+import java.util.List;
+
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
@@ -7,6 +9,7 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -46,4 +49,7 @@ public class Oferta {
   @OneToOne(optional = false, fetch = FetchType.EAGER)
   Componente componente;
 
+  @ToString.Exclude
+  @OneToMany(mappedBy = "oferta", fetch = FetchType.EAGER)
+  List<Matricula> matriculas;
 }
