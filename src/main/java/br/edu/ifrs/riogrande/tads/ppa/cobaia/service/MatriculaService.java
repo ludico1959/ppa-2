@@ -26,12 +26,6 @@ public class MatriculaService {
     Aluno aluno = alunoRepository.findByNumeroMatricula(numeroMatricula).orElseThrow();
     Oferta oferta = ofertaRepository.findById(codigoOfertaComponente).orElseThrow();
 
-    // if (oferta.getVagas() < numeroMatriculados)
-    // else
-    //    o aluno já fez o componente e não concluiu
-    //    matricular se houver espaço no overbooking
-    //    aluno matriculado há mais de 3 anos
-
     Matricula matricula = Matricula.builder()
         .id(UUID.randomUUID())
         .data(LocalDateTime.now())

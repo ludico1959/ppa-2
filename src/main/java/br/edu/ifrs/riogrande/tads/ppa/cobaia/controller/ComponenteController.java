@@ -27,7 +27,7 @@ public class ComponenteController {
   @ResponseStatus(code = HttpStatus.CREATED)
   void newComponente(@RequestBody ComponenteDTO body) {
 
-    System.out.println(body);;;;;;
+    System.out.println(body);
 
     componenteService.cadastrarComponente(body);
 

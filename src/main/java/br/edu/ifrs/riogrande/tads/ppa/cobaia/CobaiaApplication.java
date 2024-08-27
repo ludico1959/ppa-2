@@ -39,22 +39,22 @@ public class CobaiaApplication {
     // ALUNOS
     Aluno aluno01 = Aluno.builder()
         .numeroMatricula(LocalDate.now().getYear() * 10000 + 1)
-        .nome("Lucas Coelho")
+        .nome("LeBron James")
         .build();
 
     Aluno aluno02 = Aluno.builder()
         .numeroMatricula(LocalDate.now().getYear() * 10000 + 2)
-        .nome("Lorrana Pereira")
+        .nome("Stephen Curry")
         .build();
 
     Aluno aluno03 = Aluno.builder()
         .numeroMatricula(LocalDate.now().getYear() * 10000 + 3)
-        .nome("Márcio Nunes")
+        .nome("Kevin Durant")
         .build();
 
     Aluno aluno04 = Aluno.builder()
         .numeroMatricula(LocalDate.now().getYear() * 10000 + 4)
-        .nome("Arlindo Cruz")
+        .nome("Giannis Antetokounmpo")
         .build();
 
     alunoRepository.save(aluno01);

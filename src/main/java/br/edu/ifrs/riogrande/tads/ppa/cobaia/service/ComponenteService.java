@@ -22,18 +22,15 @@ public class ComponenteService {
   private final OfertaRepository ofertaRepository;
 
   public void cadastrarComponente(ComponenteDTO dto) {
-    // Princípios e Padrões de Arquitetura pepda
-    String codigo = Stream.of(dto.getNome() // Princípios e Padrões de Arquitetura
-        .toLowerCase() // princípios e padrões de arquitetura
-        .split("\\s+")) // [princípios, e, padrões, de, arquitetura,]
-        .filter(p -> p.length() > 2) // [princípios, padrões, arquitetura]
-        .map(s -> s.charAt(0) + "") // [p, p, a]
-        .collect(Collectors.joining("")); // "ppa"
+
+    String codigo = Stream.of(dto.getNome()
+        .toLowerCase()
+        .split("\\s+"))
+        .filter(p -> p.length() > 2)
+        .map(s -> s.charAt(0) + "")
+        .collect(Collectors.joining(""));
 
     Componente componente = new Componente(codigo, dto.getNome());
-
-    // poderia deixar a logica para o componente (domain object)
-    // Componente.cadastrar(dto.getNome());
 
     componenteRepository.save(componente);
   }
@@ -43,7 +40,6 @@ public class ComponenteService {
     Componente componente = componenteRepository
         .findById(codigoComponente).orElseThrow();
 
-    // lógica de negócio: transaction script
     String id = "%s-%d-%d".formatted(
         componente.getCodigo(),
         dto.getPeriodoAno(),
